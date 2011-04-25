@@ -1,7 +1,5 @@
 %% -*-octave-*-	
 
-cd "I:\\"; 
-addpath('\\ofm\gwu\FC\POP\STAFF\Webb\CodeLibrary');
 more off;
 PS1("\\#> ");  ## "\\W:\\#\n> "
 PS2("...> ");

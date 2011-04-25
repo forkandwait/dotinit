@@ -51,14 +51,15 @@
 
 ;; tabs - blech!
 ;;(global-set-key (kbd "TAB") 'self-insert-command)
-;;(define-key text-mode-map (kbd "TAB") 'self-insert-command); 
+(define-key text-mode-map (kbd "TAB") 'self-insert-command); 
 (setq default-tab-width 4)
 (setq-default default-tab-width 4)
 ;; (setq indent-tabs-mode t)
 ;; (setq-default indent-tabs-mode t)
 ;; (setq c-basic-indent 4)
-;; (setq-default tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60
-;;                         64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))
+(setq-default tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48
+								52 56 60 64 68 72 76 80 84 88 92
+								96 100 104 108 112 116 120))
 
 ;; emulate search histor http://www.emacswiki.org/emacs/MinibufferHistory
 (define-key minibuffer-local-map (kbd "M-p") 'previous-complete-history-element)
@@ -67,12 +68,12 @@
 (define-key minibuffer-local-map (kbd "<down>") 'next-complete-history-element)
 
 ;; Load fastnav thing for good zapping
-(load-file "~/.emacs.d/fastnav.el")
+(load-file "~/.init/emacs.d/fastnav.el")
 (global-set-key (kbd "C-c z") 'zap-up-to-char-forward)
 (global-set-key (kbd "C-c Z") 'zap-up-to-char-backward)
 
 ;; Load hide-region.el 
-(load-file "~/.emacs.d/hide-region.el")
+(load-file "~/.init/emacs.d/hide-region.el")
 (global-set-key (kbd "C-c h") 'hide-region-hide)
 (global-set-key (kbd "C-c H") 'hide-region-unhide)
 
@@ -89,13 +90,14 @@
 (add-hook 'sas-mode-hook
           '(lambda ()
 			 (progn
-			   (setq fill-column 88) 
-			   (setq-default ess-sas-edit-keys-toggle t)
+			   ;(setq fill-column 88) 
+			   ;(setq-default ess-sas-edit-keys-toggle t)
 			   (setq-default tab-width 4)
-			   (local-set-key (kbd "<return>") 'newline-and-indent) 
+			   ;(local-set-key (kbd "<return>") 'newline-and-indent) 
 			   ;(local-set-key (kbd "<return>") 'newline) 
-			   (local-set-key (kbd "<tab>") 'indent-relative) 
-			   )))
+			   ;(local-set-key (kbd "<tab>") 'indent-relative) 
+			   )
+			 ))
 
 ;; octave customizations
 (autoload 'octave-mode "octave-mod" nil t)
