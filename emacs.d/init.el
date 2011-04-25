@@ -50,8 +50,8 @@
 (put 'downcase-region 'disabled nil)
 
 ;; tabs - blech!
-(global-set-key (kbd "TAB") 'self-insert-command)
-(define-key text-mode-map (kbd "TAB") 'self-insert-command); 
+;;(global-set-key (kbd "TAB") 'self-insert-command)
+;;(define-key text-mode-map (kbd "TAB") 'self-insert-command); 
 (setq default-tab-width 4)
 (setq-default default-tab-width 4)
 ;; (setq indent-tabs-mode t)
