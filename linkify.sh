@@ -13,14 +13,15 @@ case $OS in
 		LNOPTS=' -svb'
 		
 		# DIRS
-		ln $LNOPTS $HOME/.init/emacs.d    $HOME/.emacs.d
+		ln $LNOPTS $HOME/.init/emacs.d         $HOME/.emacs.d
 
 		# FILES
-		ln $LNOPTS $HOME/.init/bashrc          $HOME/.bashrc
 		ln $LNOPTS $HOME/.init/bash_profile    $HOME/.bash_profile
+		ln $LNOPTS $HOME/.init/bashrc          $HOME/.bashrc
 		ln $LNOPTS $HOME/.init/inputrc         $HOME/.inputrc
-		ln $LNOPTS $HOME/.init/psqlrc          $HOME/.psqlrc
 		ln $LNOPTS $HOME/.init/octaverc        $HOME/.octaverc 
+		ln $LNOPTS $HOME/.init/psqlrc          $HOME/.psqlrc
+		ln $LNOPTS $HOME/.init/vimrc           $HOME/.vimrc
 		;;
 esac
 
