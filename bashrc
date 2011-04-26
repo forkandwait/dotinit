@@ -5,6 +5,7 @@ set -u
 
 export SHPX="{dbf,prj,s{b{n,x},h{p{,.xml},x}}}"
 export HISTIGNORE="&:ls:ls *:[bf]g"
+export INPUTRC="$HOME/.init/inputrc"
 
 alias ll='ls -ltr'
 
