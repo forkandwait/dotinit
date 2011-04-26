@@ -29,6 +29,7 @@
 (setq make-backup-files nil)
 (setq show-paren-style 'expression)
 (setq inhibit-splash-screen t)
+(setq vc-follow-symlinks t)
 (show-paren-mode 1)
 
 

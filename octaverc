@@ -1,16 +1,8 @@
 %% -*-octave-*-	
 
 more off;
-PS1("\\#> ");  ## "\\W:\\#\n> "
+PS1("\\#> "); 
 PS2("...> ");
-
-switch version
-  case '3.2.4'
-    setenv("GSC","GSC");
-    setenv('GNUTERM', "wxt")
-  otherwise
-    disp(version)
-endswitch
 
 split_long_rows(0);
 debug_on_error(0);
@@ -18,3 +10,9 @@ debug_on_interrupt(0);
 debug_on_warning(0);
 
 clear all;
+
+if exist('.octaverc.local') == 2 
+  source '.octaverc.local'
+end
+
+
