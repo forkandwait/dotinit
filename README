@@ -1,1 +1,4 @@
 Roving initialization set up...
+
+Basic idea is too have symlinks to rc files, which in turn call
+rc.local files if the exist after doing general rc stuff
