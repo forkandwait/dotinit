@@ -12,6 +12,12 @@
 		   (push "C:/GetGnuWin32/gnuwin32/bin" exec-path)
 		   (setenv "PATH" (concat "C:\\GetGnuWin32\\gnuwin32\\bin;"
 								  (getenv "PATH")))))
+
+(setq default-frame-alist
+      '((top . 200) (left . 200)
+        (width . 120) (height . 40)))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Overall stuff -- editing, saving etc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
