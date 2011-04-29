@@ -56,6 +56,13 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
+(add-hook 'sql-mode-hook
+		  '(lambda ()
+			 (progn
+			   (setq-default tab-width 4)
+			   (local-set-key (kbd "TAB") 'self-insert-command)
+			   )))
+
 ;; tabs - blech!
 ;;(global-set-key (kbd "TAB") 'self-insert-command)
 (define-key text-mode-map (kbd "TAB") 'self-insert-command); 
@@ -152,6 +159,13 @@
       (dolist (word words ) (insert word " "))
       (delete-trailing-whitespace))
     (beginning-of-line) (forward-line 1))) 
+
+;; newline-and-indent-relative
+(defun newline-and-indent-relative ()
+  (interactive)
+  (progn (newline) (indent-relative)))
+(global-set-key (kbd "C-j") 'newline-and-indent-relative)
+
 
 ;; wrap with text -- comment, arbitrary
 (defun wrap-comment ()
