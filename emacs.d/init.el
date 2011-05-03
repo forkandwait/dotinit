@@ -37,7 +37,7 @@
 (setq inhibit-splash-screen t)
 (setq vc-follow-symlinks t)
 (show-paren-mode 1)
-
+(set-face-foreground 'font-lock-comment-face "red")
 
 ;; dabbrev customization
 (setq-default dabbrev-abbrev-skip-leading-regexp "[~!@#$%^&*()+=';`\\{}/.,\"]") ;; so we can dynamically complete %WS_MATCH etc
