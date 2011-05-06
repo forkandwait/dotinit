@@ -64,13 +64,8 @@
 			   )))
 
 ;; tabs - blech!
-;;(global-set-key (kbd "TAB") 'self-insert-command)
-(define-key text-mode-map (kbd "TAB") 'self-insert-command); 
 (setq default-tab-width 4)
 (setq-default default-tab-width 4)
-;; (setq indent-tabs-mode t)
-;; (setq-default indent-tabs-mode t)
-;; (setq c-basic-indent 4)
 (setq-default tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48
 								52 56 60 64 68 72 76 80 84 88 92
 								96 100 104 108 112 116 120))
@@ -99,19 +94,16 @@
 ;; Load ess and sas mode customizations
 (defun load-ess ()
   (interactive)
-  (load-file "~/.emacs.d/ess-5.13/lisp/ess-site.el")
-  (setq ess-sas-edit-keys-toggle t))
-(add-hook 'sas-mode-hook
+  (load-file "~/.emacs.d/ess-5.13/lisp/ess-site.el"))
+
+(add-hook 'ess-mode-hook
           '(lambda ()
-			 (progn
-			   ;(setq fill-column 88) 
-			   ;(setq-default ess-sas-edit-keys-toggle t)
-			   (setq-default tab-width 4)
-			   ;(local-set-key (kbd "<return>") 'newline-and-indent) 
-			   ;(local-set-key (kbd "<return>") 'newline) 
-			   ;(local-set-key (kbd "<tab>") 'indent-relative) 
-			   )
-			 ))
+			 (local-set-key (kbd "<return>") 'newline)
+			 (local-set-key (kbd "C-j") 'newline-indent-relative)
+			 (local-set-key (kbd "<tab>") 'indent-relative)
+             (modify-syntax-entry ?_ "w")       ; now '_' is not considered a word-delimiter
+             (modify-syntax-entry ?- "w")       ; now '-' is not considered a word-delimiter 
+             ))
 
 ;; octave customizations
 (autoload 'octave-mode "octave-mod" nil t)
@@ -146,7 +138,6 @@
 	    minibuffer-local-ns-map))
 
 
-
 ;; Sorts all the words on a line.  Would be better in a region, maybe.
 (defun sort-words-in-lines (start end)
   (interactive "r")
@@ -159,12 +150,6 @@
       (dolist (word words ) (insert word " "))
       (delete-trailing-whitespace))
     (beginning-of-line) (forward-line 1))) 
-
-;; newline-and-indent-relative
-(defun newline-and-indent-relative ()
-  (interactive)
-  (progn (newline) (indent-relative)))
-(global-set-key (kbd "C-j") 'newline-and-indent-relative)
 
 
 ;; wrap with text -- comment, arbitrary
@@ -213,6 +198,15 @@
 (global-set-key (kbd "C-<f12>") 'previous-user-buffer) ; Ctrl+PageDown
 (global-set-key (kbd "C-<f11>") 'next-user-buffer) ; Ctrl+PageUp
 
+;; newline and indent-relative
+(defun newline-indent-relative ()
+  "blah"
+  (interactive)
+  (progn 
+	(newline)
+	(indent-relative-maybe))) 
+(global-set-key (kbd "C-j") 'newline-indent-relative) 
+
 ;; Rigidly indent. C-c 4 indents in, C-c - 4 outdents the same.  Keeps
 ;; working on the same region if repeated (highlight disappears)
 (fset 'ind4
@@ -256,28 +250,26 @@
 ;; Insert a header regarding code 
 (defun bp () (interactive)
   (insert(format-time-string
-"/*********************************************************************************
+"/*** -*-mode:sas-*- **************************************************************
     
     PROGRAM: 
     
-    DESCRIPTION: 
+    DESCRIPTION:  
     
-    PROGRAMMERS:          webb.sprague@ofm.wa.gov    
+    PROGRAMMERS:  webb.sprague@ofm.wa.gov    
     
     DATE STARTED: %Y-%m-%d
 
-    USAGE:  
+    INPUT DATASETS: 
 
-	INPUTS:
-
-	OUTPUTS:
+    OUTPUT DATASETS: 
     
     NOTES:
     
 **********************************************************************************/
 "))
-  (previous-line 13)
-  (forward-char 13)
+  (previous-line 9)
+  (forward-char 18)
 )
 
 ;; Insert a "section break" comment
