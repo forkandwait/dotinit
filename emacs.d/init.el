@@ -56,13 +56,6 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-(add-hook 'sql-mode-hook
-		  '(lambda ()
-			 (progn
-			   (setq-default tab-width 4)
-			   (local-set-key (kbd "TAB") 'self-insert-command)
-			   )))
-
 ;; tabs - blech!
 (setq default-tab-width 4)
 (setq-default default-tab-width 4)
@@ -100,7 +93,7 @@
           '(lambda ()
 			 (local-set-key (kbd "<return>") 'newline)
 			 (local-set-key (kbd "C-j") 'newline-indent-relative)
-			 (local-set-key (kbd "<tab>") 'indent-relative)
+			 (local-set-key (kbd "<tab>") 'tab-to-tab-stop)
              (modify-syntax-entry ?_ "w")       ; now '_' is not considered a word-delimiter
              (modify-syntax-entry ?- "w")       ; now '-' is not considered a word-delimiter 
              ))
@@ -121,6 +114,13 @@
              (modify-syntax-entry ?_ "w")       ; now '_' is not considered a word-delimiter
              (modify-syntax-entry ?- "w")       ; now '-' is not considered a word-delimiter 
              ))
+
+(add-hook 'sql-mode-hook
+		  '(lambda ()
+			 (progn
+			   (setq-default tab-width 4)
+			   (local-set-key (kbd "<tab>") 'self-insert-command)
+			   )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Longwinded definitions and macros, usually accompanied by key
