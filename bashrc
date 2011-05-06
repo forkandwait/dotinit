@@ -5,6 +5,8 @@ set -e -u
 shopt -s extglob progcomp checkwinsize
 
 alias ll='ls -ltr'
+alias tm0='tmux attach-session -t 0'
+alias tml='tmux list-session'
 
 export SHPX="{dbf,prj,s{b{n,x},h{p{,.xml},x}}}"
 export HISTIGNORE="&:ls:ls *:[bf]g"

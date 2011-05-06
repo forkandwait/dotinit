@@ -5,9 +5,10 @@
 set -e
 set -u
 
-case $OS in
-	Windows_NT)
+case $OSTYPE in
+	*windows*)
 		echo "WINDOWS SUCKS!  NO SYMLINKS! ADD SOURCE STATEMENTS TO RC FILES!"
+		exit 1
 		;;
 	*)
 		LNOPTS=' -svb'
