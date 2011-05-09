@@ -88,7 +88,6 @@
 (defun load-ess ()
   (interactive)
   (load-file "~/.emacs.d/ess-5.13/lisp/ess-site.el"))
-
 (add-hook 'ess-mode-hook
           '(lambda ()
 			 (local-set-key (kbd "<return>") 'newline)
@@ -119,7 +118,7 @@
 		  '(lambda ()
 			 (progn
 			   (setq-default tab-width 4)
-			   (local-set-key (kbd "<tab>") 'self-insert-command)
+			   (local-set-key (kbd "<tab>") 'tab-to-tab-stop)
 			   )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
