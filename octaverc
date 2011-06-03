@@ -11,8 +11,8 @@ debug_on_warning(0);
 
 clear all;
 
-if exist('.octaverc.local') == 2 
-  source '.octaverc.local'
+if exist('~/.octaverc.local') == 2 
+  source '~/.octaverc.local'
 end
 
 
