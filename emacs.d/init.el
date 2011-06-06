@@ -37,7 +37,7 @@
 (setq inhibit-splash-screen t)
 (setq vc-follow-symlinks t)
 (show-paren-mode 1)
-(set-face-foreground 'font-lock-comment-face "ForestGreen")
+;(set-face-foreground 'font-lock-comment-face "ForestGreen")
 
 ;; dabbrev customization
 (setq-default dabbrev-abbrev-skip-leading-regexp "[~!@#$%^&*()+=';`\\{}/.,\"]") ;; so we can dynamically complete %WS_MATCH etc
@@ -106,12 +106,21 @@
 (add-hook 'text-mode-hook
           '(lambda ()
              (auto-fill-mode 0)
-             (setq fill-column 88) 
+             (setq fill-column 80) 
+
              (setq tab-width 4)
              (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60
                                      64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)) 
+
              (modify-syntax-entry ?_ "w")       ; now '_' is not considered a word-delimiter
              (modify-syntax-entry ?- "w")       ; now '-' is not considered a word-delimiter 
+
+			 (define-key text-mode-map (kbd "TAB") 'tab-to-tab-stop)
+
+			 ;(local-set-key (kbd "<return>") 'newline-indent-relative)
+			 ;(local-set-key (kbd "C-<return>") 'newline) 
+			 ;(local-set-key (kbd "<tab>") 'tab-to-tab-stop)
+			 ;(local-set-key (kbd "C-<tab>") 'indent-relative)
              ))
 
 (add-hook 'sql-mode-hook
