@@ -14,7 +14,7 @@
 								  (getenv "PATH")))))
 
 (setq default-frame-alist
-      '((top . 200) (left . 200)
+      '((top . 100) (left . 100)
         (width . 120) (height . 40)))
 
 
@@ -37,7 +37,7 @@
 (setq inhibit-splash-screen t)
 (setq vc-follow-symlinks t)
 (show-paren-mode 1)
-;(set-face-foreground 'font-lock-comment-face "ForestGreen")
+(set-face-foreground 'font-lock-comment-face "firebrick")
 
 ;; dabbrev customization
 (setq-default dabbrev-abbrev-skip-leading-regexp "[~!@#$%^&*()+=';`\\{}/.,\"]") ;; so we can dynamically complete %WS_MATCH etc
@@ -84,27 +84,31 @@
 ;; Program/ mode specific
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Load ess and sas mode customizations
 (defun load-ess ()
   (interactive)
-  (load-file "~/.emacs.d/ess-5.13/lisp/ess-site.el"))
-(add-hook 'ess-mode-hook
-          '(lambda ()
-			 (local-set-key (kbd "<return>") 'newline)
-			 (local-set-key (kbd "C-j") 'newline-indent-relative)
-			 (local-set-key (kbd "<tab>") 'tab-to-tab-stop)
-             (modify-syntax-entry ?_ "w")       ; now '_' is not considered a word-delimiter
-             (modify-syntax-entry ?- "w")       ; now '-' is not considered a word-delimiter 
-             ))
+	(load-file "~/.emacs.d/ess-5.13/lisp/ess-site.el"))
+(defun sasm ()
+  (interactive)
+  (progn
+	(sas-mode)
+	(local-set-key (kbd "<return>") 'newline-indent-relative)
+	(local-set-key (kbd "C-<return>") 'newline)
+	(local-set-key (kbd "<tab>") 'tab-to-tab-stop) 
+	(local-set-key (kbd "C-<tab>") 'indent-relative-maybe) 
+	(modify-syntax-entry ?_ "w")         ; make  '_'  a word-delimiter
+	(modify-syntax-entry ?- "w")))       ; make  '-' a word-delimiter 
+	
 
 ;; octave customizations
 (autoload 'octave-mode "octave-mod" nil t)
 (setq auto-mode-alist
       (cons '("\\.m$" . octave-mode) auto-mode-alist))
+(setq-default octave-block-offset 4)
 
 ;; text mode customizations
 (add-hook 'text-mode-hook
           '(lambda ()
+			 (local-set-key (kbd "<tab>") 'tab-to-tab-stop)
              (auto-fill-mode 0)
              (setq fill-column 80) 
 
@@ -203,8 +207,8 @@
 
 (global-set-key (kbd "C-<prior>") 'previous-user-buffer) ; Ctrl+PageDown
 (global-set-key (kbd "C-<next>") 'next-user-buffer) ; Ctrl+PageUp
-(global-set-key (kbd "C-<f12>") 'previous-user-buffer) ; Ctrl+PageDown
-(global-set-key (kbd "C-<f11>") 'next-user-buffer) ; Ctrl+PageUp
+(global-set-key (kbd "<M-left>") 'previous-user-buffer) ; 
+(global-set-key (kbd "<M-right>") 'next-user-buffer) ; 
 
 ;; newline and indent-relative
 (defun newline-indent-relative ()
@@ -289,3 +293,10 @@
   (previous-line 2)
   (forward-char 4)
 )
+
+
+;; Insert a MAIN delimiter thing
+(defun mn () (interactive)
+  (insert(format-time-string
+"/**** MAIN **********************************************************************/"))
+  (newline))
