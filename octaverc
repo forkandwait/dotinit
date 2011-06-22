@@ -1,4 +1,21 @@
 %% -*-octave-*-	
+1;
+clear all;
+DIGITS = sprintf("%c", 48:57);
+UPPERCASE = sprintf("%c", 65:90);
+LOWERCASE = sprintf("%c", 97:122);
+XCLIDX = vertcat(cellstr(UPPERCASE'), cellstr(setprod(UPPERCASE, UPPERCASE)));
+
+function idx = xidx(c)
+	persistent UPPERCASE
+	persistent XCLIDX 
+	if isempty(XCLIDX)
+		UPPERCASE = sprintf("%c", 65:90);
+		XCLIDX = vertcat(cellstr(UPPERCASE'), cellstr(setprod(UPPERCASE, UPPERCASE)));
+	end
+	c = upper(c);
+	idx = find(ismember(XCLIDX, c));
+end
 
 more off;
 PS1("\\#> "); 
@@ -9,7 +26,7 @@ debug_on_error(0);
 debug_on_interrupt(0);
 debug_on_warning(0);
 
-clear all;
+
 
 if exist('~/.octaverc.local') == 2 
   source '~/.octaverc.local'

@@ -79,6 +79,8 @@
 (global-set-key (kbd "C-c h") 'hide-region-hide)
 (global-set-key (kbd "C-c H") 'hide-region-unhide)
 
+;; Load simple-sas.el
+(load-file "~/.init/emacs.d/simple-sas.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Program/ mode specific
