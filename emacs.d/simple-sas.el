@@ -1,23 +1,38 @@
 
 (define-generic-mode 'simple-sas-mode
-  '(("/*" . "*/")) 
-  '(
+  '( ("/*" . "*/") ) 						; comment delimiters ("* " . ";")
+  '(													; keywords
+	"abort"
+	
 	"and" 
 	"as"
 	"begin" 
 	"by" 
 	"call" 
+	"case"
 	"data" 
 	"delete" 
 	"descending"
+	"do"
 	"else" 
 	"end" 
 	"format"
 	"from"
+	"having"
 	"if"
 	"in"
+	"insert"
+	"infile"
+	"input"
+	"join"
+	"label"
 	"libname"
+	"nodupkeys"
+	"noduplicates"
+	"not"
+	"on"
 	"or" 
+	"option"
 	"output" 
 	"proc" 
 	"quit" 
@@ -29,22 +44,30 @@
 	"then" 
 	"transpose"
 	"update"
-	"insert"
+	"when"
+	"where"
 
+	"alter table"
 	"create table"
 	"drop table"
 	"group by"
 	"insert into"
-
+	"left outer join"
+	"full outer join"
+	"order by"
+	"rename to"
 	)
-  '( 
-   ("\\((keep [^)]*)\\)" 1 'font-lock-preprocessor-face)
-   ("\\((drop [^)]*)\\)" 1 'font-lock-preprocessor-face)
-   ("\\((rename [^)]*)\\)" 1 'font-lock-preprocessor-face)
-   ("\\(\"[^\"]*\"\\)" 1 'font-lock-string-face)  ; quoted strings -- "hides" macro variables, tho
-   ("\\(\'[^\']*\'\\)" 1 'font-lock-string-face)  ; quoted strings
-   ("\\(&[[:alnum:]_]*\\.\\)" 1 'font-lock-variable-name-face)  ; Macro variable &sdlkfsjdl.
-   ("\\(%[[:alnum:]]*[^[:alnum:]]\\)" 1 'font-lock-function-name-face)  ; Macro keywords %stuff 
+  '( 									;font-lock-list
+   ("\\(\\*[^;\\*/]*;\\)" 0 'font-lock-comment-face t) ; silly comments
+   ("\\((keep [^)]*)\\)" 0 'font-lock-preprocessor-face)
+   ("\\((drop [^)]*)\\)" 0 'font-lock-preprocessor-face)
+   ("\\((rename [^)]*)\\)" 0 'font-lock-preprocessor-face)
+   ("\\(%[[:alnum:]_]*[^[:alnum:]]\\)" 0 'font-lock-function-name-face)  ; Macro keywords %stuff 
+
+   ("\\(\"[^\"]*\"\\)" 0 'font-lock-string-face t)  ; quoted strings -- "hides" macro variables, tho
+   ("\\(\'[^\']*\'\\)" 0 'font-lock-string-face t)  ; quoted strings
+   ("\\(&[[:alnum:]_]*\\.\\)" 0 'font-lock-function-name-face prepend)  ; Macro variable &sdlkfsjdl.
+
    ); 
 										
 										
@@ -67,5 +90,15 @@
 					 (copy-face 'bold 'sas-variable-name-face) 
 					 (set-face-foreground 'sas-variable-name-face "DarkCyan")
 					 (setq font-lock-variable-name-face 'sas-variable-name-face)
+
+					 (setq font-lock-defaults '(generic-font-lock-keywords nil t))
+
 					 )))
   "Major mode for very simple SAS highlighting and indenting.")
+
+;; indent nicely -- still working
+(defun sasret ()
+  (interactive)
+  (progn 
+	(skip-chars-forward "[:space:]")
+	(newline-indent-relative)))

@@ -3,6 +3,7 @@
 ;; windows, set this in the short cut
 (setq default-directory "~")
 (cd "~")
+(server-start)
 
 ;; MS Windows specific   
 (if (eq system-type 'windows-nt)
@@ -14,8 +15,8 @@
 								  (getenv "PATH")))))
 
 (setq default-frame-alist
-      '((top . 100) (left . 100)
-        (width . 120) (height . 40)))
+      '((top . 275) (left . 175)
+        (width . 115) (height . 40)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -39,6 +40,12 @@
 (show-paren-mode 1)
 (set-face-foreground 'font-lock-comment-face "firebrick")
 
+;; bigger font
+(set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
+
+;; newline craziness
+(setq require-final-newline t)
+
 ;; dabbrev customization
 (setq-default dabbrev-abbrev-skip-leading-regexp "[~!@#$%^&*()+=';`\\{}/.,\"]") ;; so we can dynamically complete %WS_MATCH etc
 (setq-default dabbrev-abbrev-char-regexp "[[:alnum:]_]")
@@ -55,19 +62,20 @@
 ;; allow up/down case
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
-
+	
 ;; tabs - blech!
-(setq default-tab-width 4)
+;; (setq-default-tab-width 4)
 (setq-default default-tab-width 4)
 (setq-default tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48
-								52 56 60 64 68 72 76 80 84 88 92
-								96 100 104 108 112 116 120))
+ 								52 56 60 64 68 72 76 80 84 88 92
+ 								96 100 104 108 112 116 120))
+;; (define-key text-mode-map (kbd "TAB") 'self-insert-command);
 
 ;; emulate search histor http://www.emacswiki.org/emacs/MinibufferHistory
 (define-key minibuffer-local-map (kbd "M-p") 'previous-complete-history-element)
 (define-key minibuffer-local-map (kbd "M-n") 'next-complete-history-element)
-(define-key minibuffer-local-map (kbd "<up>") 'previous-complete-history-element)
-(define-key minibuffer-local-map (kbd "<down>") 'next-complete-history-element)
+;;(define-key minibuffer-local-map (kbd "<up>") 'previous-complete-history-element)
+;;(define-key minibuffer-local-map (kbd "<down>") 'next-complete-history-element)
 
 ;; Load fastnav thing for good zapping
 (load-file "~/.init/emacs.d/fastnav.el")
@@ -86,21 +94,6 @@
 ;; Program/ mode specific
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun load-ess ()
-  (interactive)
-	(load-file "~/.emacs.d/ess-5.13/lisp/ess-site.el"))
-(defun sasm ()
-  (interactive)
-  (progn
-	(sas-mode)
-	(local-set-key (kbd "<return>") 'newline-indent-relative)
-	(local-set-key (kbd "C-<return>") 'newline)
-	(local-set-key (kbd "<tab>") 'tab-to-tab-stop) 
-	(local-set-key (kbd "C-<tab>") 'indent-relative-maybe) 
-	(modify-syntax-entry ?_ "w")         ; make  '_'  a word-delimiter
-	(modify-syntax-entry ?- "w")))       ; make  '-' a word-delimiter 
-	
-
 ;; octave customizations
 (autoload 'octave-mode "octave-mod" nil t)
 (setq auto-mode-alist
@@ -110,12 +103,9 @@
 ;; text mode customizations
 (add-hook 'text-mode-hook
           '(lambda ()
-			 (local-set-key (kbd "<tab>") 'tab-to-tab-stop)
+	     ;;(local-set-key (kbd "TAB") 'self-insert-command)
              (auto-fill-mode 0)
-             (setq fill-column 88) 
-             (setq tab-width 4)
-             (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60
-                                     64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)) 
+             (setq fill-column 80) 
              (modify-syntax-entry ?_ "w")       ; now '_' is not considered a word-delimiter
              (modify-syntax-entry ?- "w")       ; now '-' is not considered a word-delimiter 
              ))
@@ -255,9 +245,9 @@
 ;; Insert a header regarding code 
 (defun bp () (interactive)
   (insert(format-time-string
-"/*** -*-mode:sas-*- **************************************************************
+"/*** -*-mode:simple-sas-*- **************************************************************
     
-    PROGRAM: 
+    PROGRAM/MACRO: 
     
     DESCRIPTION:  
     
@@ -265,9 +255,9 @@
     
     DATE STARTED: %Y-%m-%d
 
-    INPUT DATASETS: 
+    INPUT (DATASETS, NAMES, ETC): 
 
-    OUTPUT DATASETS: 
+    OUTPUT  (DATASETS, NAMES, ETC): 
     
     NOTES:
     

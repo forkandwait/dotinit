@@ -5,6 +5,7 @@ clear all;
 warning("on", "Octave:missing-semicolon");
 warning("off", "Octave:num-to-str");
 
+cd(getenv('HOME'));
 if exist('~/.octaverc.local') == 2 
   source '~/.octaverc.local'
 end
