@@ -63,9 +63,8 @@
    ("\\((drop [^)]*)\\)" 0 'font-lock-preprocessor-face)
    ("\\((rename [^)]*)\\)" 0 'font-lock-preprocessor-face)
    ("\\(%[[:alnum:]_]*[^[:alnum:]]\\)" 0 'font-lock-function-name-face)  ; Macro keywords %stuff 
-
-   ("\\(\"[^\"]*\"\\)" 0 'font-lock-string-face t)  ; quoted strings -- "hides" macro variables, tho
-   ("\\(\'[^\']*\'\\)" 0 'font-lock-string-face t)  ; quoted strings
+   ("\\(\"[^\"]*\"\\)" 0 'font-lock-string-face)  ; quoted strings -- "hides" macro variables, tho
+   ("\\(\'[^\']*\'\\)" 0 'font-lock-string-face)  ; quoted strings
    ("\\(&[[:alnum:]_]*\\.\\)" 0 'font-lock-function-name-face prepend)  ; Macro variable &sdlkfsjdl.
 
    ); 
