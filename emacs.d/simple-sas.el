@@ -72,8 +72,24 @@
 										
   '("\\.sas\\'")
   (list (lambda () (progn 
-					 (local-set-key (kbd "<return>") 'newline-indent-relative)
-					 (local-set-key (kbd "C-<return>") 'newline)
+					 ;; indent as nicely as possible
+					 (defun sasret ()
+					   (interactive)
+					   (cond 
+						;; empty line
+						((and (looking-back "^") (looking-at "$")) ; empty line
+						 (progn (newline)))
+						;; front of line
+						((and (looking-back "^") (looking-at "$")) ; empty line
+						 (progn (newline)))
+						;; in middle of leading spaces
+						((and (looking-back "^[[:blank:]]*") (looking-at "[[:blank:]]+[[:word:][:punct:]]")) 
+						 (progn (skip-chars-forward "[:space:]")
+								(newline-indent-relative)))
+						;; otherwise
+						('t (progn (newline-indent-relative)))))
+
+					 (local-set-key (kbd "<return>") 'sasret)
 					 (local-set-key (kbd "<tab>") 'tab-to-tab-stop) 
 					 (local-set-key (kbd "C-<tab>") 'indent-relative-maybe) 
 					 (modify-syntax-entry ?_ "w")         ; make  '_'  a word-delimiter for dynamic abbr
@@ -94,10 +110,3 @@
 
 					 )))
   "Major mode for very simple SAS highlighting and indenting.")
-
-;; indent nicely -- still working
-(defun sasret ()
-  (interactive)
-  (progn 
-	(skip-chars-forward "[:space:]")
-	(newline-indent-relative)))
