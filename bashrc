@@ -14,10 +14,7 @@ alias emacs='emacs --no-site-file'
 alias less='less -X'
 
 export SHPX="{dbf,prj,s{b{n,x},h{p{,.xml},x}}}"
-<<<<<<< HEAD
-=======
 export HISTIGNORE="&:[bf]g"
->>>>>>> 3ef1d5a09ad9b2a2aae18a1f5f33b36d054ba20f
 export INPUTRC="$HOME/.init/inputrc"
 export PS1="\W/ (j=\j,r=\$?)$ "
 
