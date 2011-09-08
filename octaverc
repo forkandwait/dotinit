@@ -1,4 +1,18 @@
 %% -*-octave-*-	
+1;
+clear all;
+
+warning("on", "Octave:missing-semicolon");
+warning("off", "Octave:num-to-str");
+
+cd(getenv('HOME'));
+if exist('~/.octaverc.local') == 2 
+  source '~/.octaverc.local'
+end
+
+global DIGITS = sprintf("%c", 48:57);
+global UPPERCASE = sprintf("%c", 65:90);
+global LOWERCASE = sprintf("%c", 97:122);
 
 more off;
 PS1("\\#> "); 
@@ -9,10 +23,5 @@ debug_on_error(0);
 debug_on_interrupt(0);
 debug_on_warning(0);
 
-clear all;
-
-if exist('~/.octaverc.local') == 2 
-  source '~/.octaverc.local'
-end
 
 
