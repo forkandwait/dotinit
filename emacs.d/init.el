@@ -64,10 +64,10 @@
 								96 100 104 108 112 116 120))
 
 ;; emulate search histor http://www.emacswiki.org/emacs/MinibufferHistory
-(define-key minibuffer-local-map (kbd "M-p") 'previous-complete-history-element)
-(define-key minibuffer-local-map (kbd "M-n") 'next-complete-history-element)
-(define-key minibuffer-local-map (kbd "<up>") 'previous-complete-history-element)
-(define-key minibuffer-local-map (kbd "<down>") 'next-complete-history-element)
+;(define-key minibuffer-local-map (kbd "M-p") 'previous-complete-history-element)
+;(define-key minibuffer-local-map (kbd "M-n") 'next-complete-history-element)
+;(define-key minibuffer-local-map (kbd "<up>") 'previous-complete-history-element)
+;(define-key minibuffer-local-map (kbd "<down>") 'next-complete-history-element)
 
 ;; Load fastnav thing for good zapping
 (load-file "~/.init/emacs.d/fastnav.el")
@@ -93,8 +93,8 @@
 	(sas-mode)
 	(local-set-key (kbd "<return>") 'newline-indent-relative)
 	(local-set-key (kbd "C-<return>") 'newline)
-	(local-set-key (kbd "<tab>") 'tab-to-tab-stop) 
-	(local-set-key (kbd "C-<tab>") 'indent-relative-maybe) 
+	(local-set-key (kbd "TAB") 'tab-to-tab-stop) 
+	(local-set-key (kbd "C-TAB") 'indent-relative-maybe) 
 	(modify-syntax-entry ?_ "w")         ; make  '_'  a word-delimiter
 	(modify-syntax-entry ?- "w")))       ; make  '-' a word-delimiter 
 	
@@ -108,7 +108,7 @@
 ;; text mode customizations
 (add-hook 'text-mode-hook
           '(lambda ()
-			 (local-set-key (kbd "<tab>") 'tab-to-tab-stop)
+			 (local-set-key (kbd "TAB") 'tab-to-tab-stop)
              (auto-fill-mode 0)
              (setq fill-column 80) 
 
@@ -131,7 +131,7 @@
 		  '(lambda ()
 			 (progn
 			   (setq-default tab-width 4)
-			   (local-set-key (kbd "<tab>") 'tab-to-tab-stop)
+			   (local-set-key (kbd "TAB") 'tab-to-tab-stop)
 			   )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -207,8 +207,8 @@
 
 (global-set-key (kbd "C-<prior>") 'previous-user-buffer) ; Ctrl+PageDown
 (global-set-key (kbd "C-<next>") 'next-user-buffer) ; Ctrl+PageUp
-(global-set-key (kbd "<M-left>") 'previous-user-buffer) ; 
-(global-set-key (kbd "<M-right>") 'next-user-buffer) ; 
+(global-set-key (kbd "C-c p") 'previous-user-buffer) ; 
+(global-set-key (kbd "C-c n") 'next-user-buffer) ; 
 
 ;; newline and indent-relative
 (defun newline-indent-relative ()
