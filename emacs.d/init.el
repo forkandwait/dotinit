@@ -103,7 +103,7 @@
 ;; text mode customizations
 (add-hook 'text-mode-hook
           '(lambda ()
-	     ;;(local-set-key (kbd "TAB") 'self-insert-command)
+	     (local-set-key (kbd "TAB") 'self-insert-command)
              (auto-fill-mode 0)
              (setq fill-column 80) 
              (modify-syntax-entry ?_ "w")       ; now '_' is not considered a word-delimiter
@@ -201,6 +201,13 @@
 	(newline)
 	(indent-relative-maybe))) 
 (global-set-key (kbd "C-j") 'newline-indent-relative) 
+
+;; random number
+(defun insert-random-number ()
+  "Insert a 4 digits random number."
+  (interactive)
+  (insert
+   (number-to-string (random 9999))))
 
 ;; Rigidly indent. C-c 4 indents in, C-c - 4 outdents the same.  Keeps
 ;; working on the same region if repeated (highlight disappears)
