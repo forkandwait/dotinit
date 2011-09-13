@@ -40,11 +40,18 @@
 (show-paren-mode 1)
 (set-face-foreground 'font-lock-comment-face "firebrick")
 
+;; scroll one line at a time (less "jumpy" than defaults) 
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time 
+;(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling 
+;(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse 
+;(setq scroll-step 1) ;; keyboard scroll one line at a time
+
 ;; bigger font
 (set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
 
 ;; newline craziness
-(setq require-final-newline t)
+(setq-default require-final-newline 'ask)
+(setq-default next-line-add-newlines nil)
 
 ;; dabbrev customization
 (setq-default dabbrev-abbrev-skip-leading-regexp "[~!@#$%^&*()+=';`\\{}/.,\"]") ;; so we can dynamically complete %WS_MATCH etc
@@ -108,6 +115,8 @@
              (setq fill-column 80) 
              (modify-syntax-entry ?_ "w")       ; now '_' is not considered a word-delimiter
              (modify-syntax-entry ?- "w")       ; now '-' is not considered a word-delimiter 
+			 (setq require-final-newline 'ask)
+			 (setq next-line-add-newlines nil) 
              ))
 
 (add-hook 'sql-mode-hook

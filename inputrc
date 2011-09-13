@@ -10,8 +10,8 @@ set visible-stats on
 set show-all-if-ambiguous on
 set match-hidden-files off
 
-TAB:menu-complete
-"\e[Z": "\e-1\C-i"
+#TAB:menu-complete
+#"\e[Z": "\e-1\C-i"
 
 $if Octave
 
