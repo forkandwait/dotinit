@@ -2,7 +2,7 @@
 
 set -e -u
 
-shopt -s extglob progcomp checkwinsize
+shopt -s extglob progcomp checkwinsize histappend
 
 export EDITOR='vi'				# is this really necessary?
 export PAGER='less -X'
@@ -17,6 +17,9 @@ export SHPX="{dbf,prj,s{b{n,x},h{p{,.xml},x}}}"
 export HISTIGNORE="&:[bf]g"
 export INPUTRC="$HOME/.init/inputrc"
 export PS1="\W/ (j=\j,r=\$?)$ "
+
+export HISTCONTROL=ignoreboth
+export PROMPT_COMMAND="history -a; history -n"
 
 test -z "${SSH_AUTH_SOCK:-xxx}" && eval `ssh-agent -s`
 

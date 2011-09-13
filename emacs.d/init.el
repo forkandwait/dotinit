@@ -71,7 +71,8 @@
 (put 'downcase-region 'disabled nil)
 	
 ;; tabs - blech!
-;; (setq-default-tab-width 4)
+(setq tab-width 4)
+(setq-default tab-width 4)
 (setq-default default-tab-width 4)
 (setq-default tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48
  								52 56 60 64 68 72 76 80 84 88 92
@@ -110,20 +111,31 @@
 ;; text mode customizations
 (add-hook 'text-mode-hook
           '(lambda ()
-	     (local-set-key (kbd "TAB") 'self-insert-command)
+			 (local-set-key (kbd "TAB") 'tab-to-tab-stop)
              (auto-fill-mode 0)
              (setq fill-column 80) 
+
+             (setq tab-width 4)
+             (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60
+                                     64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)) 
+
              (modify-syntax-entry ?_ "w")       ; now '_' is not considered a word-delimiter
              (modify-syntax-entry ?- "w")       ; now '-' is not considered a word-delimiter 
 			 (setq require-final-newline 'ask)
 			 (setq next-line-add-newlines nil) 
+			 (define-key text-mode-map (kbd "TAB") 'tab-to-tab-stop)
+
+			 ;(local-set-key (kbd "<return>") 'newline-indent-relative)
+			 ;(local-set-key (kbd "C-<return>") 'newline) 
+			 ;(local-set-key (kbd "<tab>") 'tab-to-tab-stop)
+			 ;(local-set-key (kbd "C-<tab>") 'indent-relative)
              ))
 
 (add-hook 'sql-mode-hook
 		  '(lambda ()
 			 (progn
 			   (setq-default tab-width 4)
-			   (local-set-key (kbd "<tab>") 'tab-to-tab-stop)
+			   (local-set-key (kbd "TAB") 'tab-to-tab-stop)
 			   )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -199,8 +211,8 @@
 
 (global-set-key (kbd "C-<prior>") 'previous-user-buffer) ; Ctrl+PageDown
 (global-set-key (kbd "C-<next>") 'next-user-buffer) ; Ctrl+PageUp
-(global-set-key (kbd "<M-left>") 'previous-user-buffer) ; 
-(global-set-key (kbd "<M-right>") 'next-user-buffer) ; 
+(global-set-key (kbd "C-c p") 'previous-user-buffer) ; 
+(global-set-key (kbd "C-c n") 'next-user-buffer) ; 
 
 ;; newline and indent-relative
 (defun newline-indent-relative ()
