@@ -58,7 +58,7 @@
 	"rename to"
 	)
   '( 									;font-lock-list
-   ("\\(\\*[^;\\*/]*;\\)" 0 'font-lock-comment-face t) ; silly comments
+   ;;("\\(\\*[^;\\*/]*;\\)" 0 'font-lock-comment-face t) ; silly comments
    ("\\((keep [^)]*)\\)" 0 'font-lock-preprocessor-face)
    ("\\((drop [^)]*)\\)" 0 'font-lock-preprocessor-face)
    ("\\((rename [^)]*)\\)" 0 'font-lock-preprocessor-face)

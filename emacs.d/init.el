@@ -4,6 +4,7 @@
 (setq default-directory "~")
 (cd "~")
 (server-start)
+(remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
 
 ;; MS Windows specific   
 (if (eq system-type 'windows-nt)
@@ -107,6 +108,11 @@
 (setq auto-mode-alist
       (cons '("\\.m$" . octave-mode) auto-mode-alist))
 (setq-default octave-block-offset 4)
+(add-hook 'octave-mode-hook
+		  '(lambda ()
+			 (local-set-key (kbd "<C-tab>") 'tab-to-tab-stop)
+			 (setq tab-width 6)))
+
 
 ;; text mode customizations
 (add-hook 'text-mode-hook
@@ -123,8 +129,9 @@
              (modify-syntax-entry ?- "w")       ; now '-' is not considered a word-delimiter 
 			 (setq require-final-newline 'ask)
 			 (setq next-line-add-newlines nil) 
-			 (define-key text-mode-map (kbd "TAB") 'tab-to-tab-stop)
+			 (define-key text-mode-map (kbd "TAB") 'self-insert-command)
 
+			 ;(define-key text-mode-map (kbd "TAB") 'tab-to-tab-stop)
 			 ;(local-set-key (kbd "<return>") 'newline-indent-relative)
 			 ;(local-set-key (kbd "C-<return>") 'newline) 
 			 ;(local-set-key (kbd "<tab>") 'tab-to-tab-stop)
@@ -305,9 +312,19 @@
   (forward-char 4)
 )
 
-
 ;; Insert a MAIN delimiter thing
 (defun mn () (interactive)
   (insert(format-time-string
 "/**** MAIN **********************************************************************/"))
   (newline))
+
+
+;; Insert a "section break" comment for octave
+(defun comm () (interactive)
+  (insert(format-time-string
+"############################################################
+##    
+############################################################"))
+  (previous-line 2)
+  (forward-char 4)
+)
