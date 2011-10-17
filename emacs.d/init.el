@@ -103,6 +103,21 @@
 ;; Program/ mode specific
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; ampl and math prog
+(load-file "~/.init/emacs.d/ampl-mode.el")
+(setq auto-mode-alist
+      (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
+(setq auto-mode-alist
+      (cons '("\\.dat$" . ampl-mode) auto-mode-alist))
+(setq auto-mode-alist
+      (cons '("\\.ampl$" . ampl-mode) auto-mode-alist))
+(setq interpreter-mode-alist
+      (cons '("ampl" . ampl-mode)
+            interpreter-mode-alist))
+
+
+
+
 ;; octave customizations
 (autoload 'octave-mode "octave-mod" nil t)
 (setq auto-mode-alist
