@@ -223,6 +223,7 @@
 
 ;; ================= U S E R   C O M M A N D S ======================
 
+
 (defvar ampl-auto-close-parenthesis nil
   "# Automatically insert closing parenthesis if non-nil")
 
