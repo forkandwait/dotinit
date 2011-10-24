@@ -55,7 +55,7 @@
 (setq-default next-line-add-newlines nil)
 
 ;; dabbrev customization
-(setq-default dabbrev-abbrev-skip-leading-regexp "[~!@#$%^&*()+=';`\\{}/.,\"]") ;; so we can dynamically complete %WS_MATCH etc
+(setq-default dabbrev-abbrev-skip-leading-regexp "[~!@#$%^&*()+=';`\\{}/.,\"]") ;; can complete %WS_MATCH etc
 (setq-default dabbrev-abbrev-char-regexp "[[:alnum:]_]")
 
 ;; fontification stuff
@@ -98,6 +98,9 @@
 
 ;; Load simple-sas.el
 (load-file "~/.init/emacs.d/simple-sas.el")
+
+;; Load wrap thing 
+(load-file "~/.init/emacs.d/rejeep-wrap-region-9445084/wrap-region.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Program/ mode specific

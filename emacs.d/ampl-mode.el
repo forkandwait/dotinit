@@ -158,7 +158,9 @@
 ;; start with a hash, end with a newline
 (defconst ampl-font-lock-comments
   (append ampl-font-lock-constants2
-	  (list '( "\\(#\\).*$" 0 font-lock-comment-face t)))
+	  (list '( "\\(#\\).*$" 0 font-lock-comment-face t) 
+			'( "a.*b" 0 font-lock-comment-face t) 
+			))
   "Comments")
 
 ;; Define default highlighting level
