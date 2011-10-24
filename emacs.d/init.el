@@ -72,6 +72,7 @@
 (put 'downcase-region 'disabled nil)
 	
 ;; tabs - blech!
+(setq indent-tabs-mode nil)
 (setq tab-width 4)
 (setq-default tab-width 4)
 (setq-default default-tab-width 4)

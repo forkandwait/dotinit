@@ -4,6 +4,8 @@ clear all;
 
 warning("on", "Octave:missing-semicolon");
 warning("off", "Octave:num-to-str");
+   
+set(0,"defaulttextfontname","Arial"), set(0,"defaultaxesfontname","Arial");
 
 cd(getenv('HOME'));
 if exist('~/.octaverc.local') == 2 
