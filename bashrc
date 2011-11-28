@@ -27,3 +27,4 @@ set +e +u
 if [ -f $HOME/.bashrc.local ]; then . $HOME/.bashrc.local; fi
 if [ -f /etc/bash_completion ]; then . /etc/bash_completion; fi
 
+export PATH="$PATH:$HOME/.init/bin"

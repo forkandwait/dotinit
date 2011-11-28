@@ -81,6 +81,9 @@
  								96 100 104 108 112 116 120))
 ;; (define-key text-mode-map (kbd "TAB") 'self-insert-command);
 
+;; load smart tabs
+;;(load-file "~/.init/emacs.d/smart-tabs-mode.el")
+
 ;; emulate search histor http://www.emacswiki.org/emacs/MinibufferHistory
 (define-key minibuffer-local-map (kbd "M-p") 'previous-complete-history-element)
 (define-key minibuffer-local-map (kbd "M-n") 'next-complete-history-element)
@@ -107,20 +110,13 @@
 ;; Program/ mode specific
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; ampl and math prog
-(load-file "~/.init/emacs.d/ampl-mode.el")
+;; mod, dat, run are all AMPL, but force to text for now
 (setq auto-mode-alist
-      (cons '("\\.mod$" . ampl-mode) auto-mode-alist))
+      (cons '("\\.mod$" . text-mode) auto-mode-alist))
 (setq auto-mode-alist
-      (cons '("\\.dat$" . ampl-mode) auto-mode-alist))
+      (cons '("\\.dat$" . text-mode) auto-mode-alist))
 (setq auto-mode-alist
-      (cons '("\\.ampl$" . ampl-mode) auto-mode-alist))
-(setq interpreter-mode-alist
-      (cons '("ampl" . ampl-mode)
-            interpreter-mode-alist))
-
-
-
+      (cons '("\\.run$" . text-mode) auto-mode-alist))
 
 ;; octave customizations
 (autoload 'octave-mode "octave-mod" nil t)
@@ -130,7 +126,7 @@
 (add-hook 'octave-mode-hook
 		  '(lambda ()
 			 (local-set-key (kbd "<C-tab>") 'tab-to-tab-stop)
-			 (setq tab-width 6)))
+			 (setq tab-width 4)))
 
 
 ;; text mode customizations
