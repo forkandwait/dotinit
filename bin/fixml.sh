@@ -1,5 +1,7 @@
 #!/bin/sh
 
+##find ./ -name '*.m' -exec fixml.sh '{}' \; 2>> err
+
 if [[ $# -ne 1 ]]; then
 	echo "$0: need single filename argument" 1>&2
 	exit 1
@@ -15,7 +17,7 @@ if [[ -e "$NEWNM" ]]; then
 	exit 1
 else
 	mv "$OLDNM" "$NEWNM"
-	gawk -f fixml.awk "$NEWNM" > "$OLDNM"
+	fixml.awk "$NEWNM" > "$OLDNM"
 fi
 
 exit 0
