@@ -24,6 +24,12 @@
 ;; Overall stuff -- editing, saving etc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; cua mode -- I am now a believer
+(cua-mode t)
+(setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
+(transient-mark-mode 1) ;; No region when it is not highlighted
+;;(setq cua-keep-region-after-copy 1) ;; bad "standard" Windows behaviour
+
 ;; various nifty things
 (auto-compression-mode t)     ;; Handle .gz files
 (column-number-mode 1)  
@@ -81,8 +87,6 @@
  								96 100 104 108 112 116 120))
 ;; (define-key text-mode-map (kbd "TAB") 'self-insert-command);
 
-;; load smart tabs
-;;(load-file "~/.init/emacs.d/smart-tabs-mode.el")
 
 ;; emulate search histor http://www.emacswiki.org/emacs/MinibufferHistory
 (define-key minibuffer-local-map (kbd "M-p") 'previous-complete-history-element)
