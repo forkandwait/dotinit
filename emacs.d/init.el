@@ -28,7 +28,7 @@
 (cua-mode t)
 (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
 (transient-mark-mode 1) ;; No region when it is not highlighted
-;;(setq cua-keep-region-after-copy 1) ;; bad "standard" Windows behaviour
+(setq cua-keep-region-after-copy 0) ;; 
 
 ;; various nifty things
 (auto-compression-mode t)     ;; Handle .gz files
@@ -39,13 +39,20 @@
 (modify-syntax-entry ?_ "w")  ;; make '_' a regular word symbol
 (savehist-mode 1)
 (setq auto-save-list-file-prefix nil)
-(setq delete-selection-mode 1) 
 (setq make-backup-files nil)
 (setq show-paren-style 'expression)
 (setq inhibit-splash-screen t)
 (setq vc-follow-symlinks t)
 (show-paren-mode 1)
 (set-face-foreground 'font-lock-comment-face "firebrick")
+
+;; stupid buffers have been modified
+(defun my-kill-emacs ()
+  "save some buffers, then exit unconditionally"
+  (interactive)
+  (save-some-buffers nil t)
+  (kill-emacs))
+(global-set-key (kbd "C-x C-c") 'my-kill-emacs)
 
 ;; scroll one line at a time (less "jumpy" than defaults) 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time 
@@ -79,13 +86,13 @@
 	
 ;; tabs - blech!
 (setq indent-tabs-mode nil)
-(setq tab-width 4)
-(setq-default tab-width 4)
-(setq-default default-tab-width 4)
-(setq-default tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48
- 								52 56 60 64 68 72 76 80 84 88 92
- 								96 100 104 108 112 116 120))
-;; (define-key text-mode-map (kbd "TAB") 'self-insert-command);
+;;(setq tab-width 4)
+;;(setq-default tab-width 4)
+;;(setq-default default-tab-width 4)
+;;(setq-default tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48
+;; 								52 56 60 64 68 72 76 80 84 88 92
+;; 								96 100 104 108 112 116 120))
+;;;; (define-key text-mode-map (kbd "TAB") 'self-insert-command);
 
 
 ;; emulate search histor http://www.emacswiki.org/emacs/MinibufferHistory
@@ -127,10 +134,6 @@
 (setq auto-mode-alist
       (cons '("\\.m$" . octave-mode) auto-mode-alist))
 (setq-default octave-block-offset 4)
-(add-hook 'octave-mode-hook
-		  '(lambda ()
-			 (local-set-key (kbd "<C-tab>") 'tab-to-tab-stop)
-			 (setq tab-width 4)))
 
 
 ;; text mode customizations
