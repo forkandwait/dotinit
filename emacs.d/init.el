@@ -27,8 +27,10 @@
 ;; cua mode -- I am now a believer
 (cua-mode t)
 (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
-(transient-mark-mode 1) ;; No region when it is not highlighted
-(setq cua-keep-region-after-copy 0) ;; 
+(global-set-key (kbd "C-c v") 'zap-up-to-char-forward)
+(global-set-key (kbd "C-c Z") 'zap-up-to-char-backward)
+
+;; (setq cua-enable-cua-keys nil)		  ;; Don't use silly microsoft keys
 
 ;; various nifty things
 (auto-compression-mode t)     ;; Handle .gz files
@@ -52,7 +54,6 @@
   (interactive)
   (save-some-buffers nil t)
   (kill-emacs))
-(global-set-key (kbd "C-x C-c") 'my-kill-emacs)
 
 ;; scroll one line at a time (less "jumpy" than defaults) 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time 
@@ -86,12 +87,12 @@
 	
 ;; tabs - blech!
 (setq indent-tabs-mode nil)
-;;(setq tab-width 4)
-;;(setq-default tab-width 4)
-;;(setq-default default-tab-width 4)
-;;(setq-default tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48
-;; 								52 56 60 64 68 72 76 80 84 88 92
-;; 								96 100 104 108 112 116 120))
+(setq tab-width 4)
+(setq-default tab-width 4)
+(setq-default default-tab-width 4)
+(setq-default tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48
+ 								52 56 60 64 68 72 76 80 84 88 92
+								96 100 104 108 112 116 120))
 ;;;; (define-key text-mode-map (kbd "TAB") 'self-insert-command);
 
 
@@ -138,34 +139,28 @@
 
 ;; text mode customizations
 (add-hook 'text-mode-hook
-          '(lambda ()
-			 (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+          '(lambda ()	     
              (auto-fill-mode 0)
              (setq fill-column 80) 
-
-             (setq tab-width 4)
-             (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60
-                                     64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)) 
+	     
+	     (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+	     (setq tab-width 4)
+	     (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60
+				     64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)) 
 
              (modify-syntax-entry ?_ "w")       ; now '_' is not considered a word-delimiter
              (modify-syntax-entry ?- "w")       ; now '-' is not considered a word-delimiter 
 			 (setq require-final-newline 'ask)
 			 (setq next-line-add-newlines nil) 
 			 (define-key text-mode-map (kbd "TAB") 'self-insert-command)
-
-			 ;(define-key text-mode-map (kbd "TAB") 'tab-to-tab-stop)
-			 ;(local-set-key (kbd "<return>") 'newline-indent-relative)
-			 ;(local-set-key (kbd "C-<return>") 'newline) 
-			 ;(local-set-key (kbd "<tab>") 'tab-to-tab-stop)
-			 ;(local-set-key (kbd "C-<tab>") 'indent-relative)
              ))
 
 (add-hook 'sql-mode-hook
-		  '(lambda ()
-			 (progn
-			   (setq-default tab-width 4)
-			   (local-set-key (kbd "TAB") 'tab-to-tab-stop)
-			   )))
+	  '(lambda ()
+	     (progn
+	       (setq tab-width 4)
+	       (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+	       )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Longwinded definitions and macros, usually accompanied by key

@@ -90,6 +90,7 @@
 						('t (progn (newline-indent-relative)))))
 
 					 (local-set-key (kbd "<return>") 'sasret)
+					 (setq indent-tabs-mode nil)
 					 (local-set-key (kbd "<tab>") 'tab-to-tab-stop) 
 					 (local-set-key (kbd "C-<tab>") 'indent-relative-maybe) 
 					 (modify-syntax-entry ?_ "w")         ; make  '_'  a word-delimiter for dynamic abbr
