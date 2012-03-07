@@ -115,8 +115,8 @@
 ;; Load simple-sas.el
 (load-file "~/.init/emacs.d/simple-sas.el")
 
-;; Load wrap thing 
-(load-file "~/.init/emacs.d/rejeep-wrap-region-9445084/wrap-region.el")
+;; Load simple-ampl.el
+(load-file "~/.init/emacs.d/simple-ampl.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Program/ mode specific
@@ -135,6 +135,10 @@
 (setq auto-mode-alist
       (cons '("\\.m$" . octave-mode) auto-mode-alist))
 (setq-default octave-block-offset 4)
+(add-hook 'octave-mode-hook
+		  '(lambda ()
+			 (progn
+			   (setq indent-tabs-mode nil))))
 
 
 ;; text mode customizations
