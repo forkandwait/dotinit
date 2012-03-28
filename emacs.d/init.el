@@ -27,10 +27,6 @@
 ;; cua mode -- I am now a believer
 (cua-mode t)
 (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
-(global-set-key (kbd "C-c v") 'zap-up-to-char-forward)
-(global-set-key (kbd "C-c Z") 'zap-up-to-char-backward)
-
-;; (setq cua-enable-cua-keys nil)		  ;; Don't use silly microsoft keys
 
 ;; various nifty things
 (auto-compression-mode t)     ;; Handle .gz files
@@ -48,6 +44,12 @@
 (show-paren-mode 1)
 (set-face-foreground 'font-lock-comment-face "firebrick")
 
+;; surround with parens and friends
+(global-set-key (kbd "M-[") 'insert-pair)
+(global-set-key (kbd "M-{") 'insert-pair)
+(global-set-key (kbd "M-\"") 'insert-pair)
+(global-set-key (kbd "M-\'") 'insert-pair)
+
 ;; stupid buffers have been modified
 (defun my-kill-emacs ()
   "save some buffers, then exit unconditionally"
@@ -57,9 +59,6 @@
 
 ;; scroll one line at a time (less "jumpy" than defaults) 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time 
-;(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling 
-;(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse 
-;(setq scroll-step 1) ;; keyboard scroll one line at a time
 
 ;; bigger font
 (set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
@@ -93,8 +92,6 @@
 (setq-default tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48
  								52 56 60 64 68 72 76 80 84 88 92
 								96 100 104 108 112 116 120))
-;;;; (define-key text-mode-map (kbd "TAB") 'self-insert-command);
-
 
 ;; emulate search histor http://www.emacswiki.org/emacs/MinibufferHistory
 (define-key minibuffer-local-map (kbd "M-p") 'previous-complete-history-element)
