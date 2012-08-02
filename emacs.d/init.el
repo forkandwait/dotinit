@@ -94,15 +94,15 @@
 								96 100 104 108 112 116 120))
 
 ;; emulate search histor http://www.emacswiki.org/emacs/MinibufferHistory
-(define-key minibuffer-local-map (kbd "M-p") 'previous-complete-history-element)
-(define-key minibuffer-local-map (kbd "M-n") 'next-complete-history-element)
+;;(define-key minibuffer-local-map (kbd "M-p") 'previous-complete-history-element)
+;;(define-key minibuffer-local-map (kbd "M-n") 'next-complete-history-element)
 ;;(define-key minibuffer-local-map (kbd "<up>") 'previous-complete-history-element)
 ;;(define-key minibuffer-local-map (kbd "<down>") 'next-complete-history-element)
 
 ;; Load fastnav thing for good zapping
-(load-file "~/.init/emacs.d/fastnav.el")
-(global-set-key (kbd "C-c z") 'zap-up-to-char-forward)
-(global-set-key (kbd "C-c Z") 'zap-up-to-char-backward)
+;;(load-file "~/.init/emacs.d/fastnav.el")
+;;(global-set-key (kbd "C-c z") 'zap-up-to-char-forward)
+;;(global-set-key (kbd "C-c Z") 'zap-up-to-char-backward)
 
 ;; Load hide-region.el 
 (load-file "~/.init/emacs.d/hide-region.el")
@@ -168,29 +168,6 @@
 ;; bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; shooting for backward search through history on minibuffer
-(mapc (lambda (map)
-        (define-key map [(meta p)] 'previous-complete-history-element)
-        (define-key map [(meta n)] 'next-complete-history-element))
-      (list minibuffer-local-completion-map
-	    minibuffer-local-isearch-map
-	    minibuffer-local-map
-	    minibuffer-local-must-match-map
-	    minibuffer-local-ns-map))
-
-
-;; Sorts all the words on a line.  Would be better in a region, maybe.
-(defun sort-words-in-lines (start end)
-  (interactive "r")
-  (goto-char start)
-  (beginning-of-line)
-  (while (< (setq start (point)) end)
-    (let ((words (sort (split-string (buffer-substring start (line-end-position)))
-                       (function string-lessp))))
-      (delete-region start (line-end-position))
-      (dolist (word words ) (insert word " "))
-      (delete-trailing-whitespace))
-    (beginning-of-line) (forward-line 1))) 
 
 
 ;; wrap with text -- comment, arbitrary
@@ -236,8 +213,8 @@
 
 (global-set-key (kbd "C-<prior>") 'previous-user-buffer) ; Ctrl+PageDown
 (global-set-key (kbd "C-<next>") 'next-user-buffer) ; Ctrl+PageUp
-(global-set-key (kbd "C-c p") 'previous-user-buffer) ; 
-(global-set-key (kbd "C-c n") 'next-user-buffer) ; 
+;(global-set-key (kbd "C-c p") 'previous-user-buffer) ; 
+;(global-set-key (kbd "C-c n") 'next-user-buffer) ; 
 
 ;; newline and indent-relative
 (defun newline-indent-relative ()
