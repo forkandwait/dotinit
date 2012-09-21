@@ -61,7 +61,8 @@
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time 
 
 ;; bigger font
-(set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
+;;(set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
+(set-default-font "-outline-Liberation Mono-normal-normal-normal-mono-13-*-*-*-c-*-iso")
 
 ;; newline craziness
 (setq-default require-final-newline 'ask)
@@ -93,11 +94,6 @@
  								52 56 60 64 68 72 76 80 84 88 92
 								96 100 104 108 112 116 120))
 
-;; emulate search histor http://www.emacswiki.org/emacs/MinibufferHistory
-;;(define-key minibuffer-local-map (kbd "M-p") 'previous-complete-history-element)
-;;(define-key minibuffer-local-map (kbd "M-n") 'next-complete-history-element)
-;;(define-key minibuffer-local-map (kbd "<up>") 'previous-complete-history-element)
-;;(define-key minibuffer-local-map (kbd "<down>") 'next-complete-history-element)
 
 ;; Load fastnav thing for good zapping
 ;;(load-file "~/.init/emacs.d/fastnav.el")
