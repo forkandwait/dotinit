@@ -95,6 +95,7 @@
 								96 100 104 108 112 116 120))
 
 
+;; zap up to char default
 (autoload 'zap-up-to-char "misc"
     "Kill up to, but not including ARGth occurrence of CHAR.
   
