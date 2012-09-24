@@ -95,10 +95,12 @@
 								96 100 104 108 112 116 120))
 
 
-;; Load fastnav thing for good zapping
-;;(load-file "~/.init/emacs.d/fastnav.el")
-;;(global-set-key (kbd "C-c z") 'zap-up-to-char-forward)
-;;(global-set-key (kbd "C-c Z") 'zap-up-to-char-backward)
+(autoload 'zap-up-to-char "misc"
+    "Kill up to, but not including ARGth occurrence of CHAR.
+  
+  \(fn arg char)"
+    'interactive)
+(global-set-key "\M-z" 'zap-up-to-char)
 
 ;; Load hide-region.el 
 (load-file "~/.init/emacs.d/hide-region.el")
