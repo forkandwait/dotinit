@@ -29,6 +29,7 @@
 (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
 
 ;; various nifty things
+(display-time)
 (auto-compression-mode t)     ;; Handle .gz files
 (column-number-mode 1)  
 (fset 'yes-or-no-p 'y-or-n-p) ;; Changes all yes/no questions abc  to y/n type
@@ -167,30 +168,6 @@
 ;; bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
-;; wrap with text -- comment, arbitrary
-(defun wrap-comment ()
-  (interactive)
-  (let ((beg (region-beginning))
-		(end (region-end)))
-	(goto-char beg)
-	(insert "/*")
-	(goto-char (+ 2 end))
-	(insert "*/")))
-(global-set-key (kbd "C-c c") 'wrap-comment)
-
-(defun insert-or-wrap (string)
-  (interactive "*Mtext to wrap with")
-  (if (not (use-region-p))
-      (insert string)
-    (let ((beg (region-beginning))
-          (end (region-end)))
-	  (goto-char beg)
-	  (insert string)
-	  (goto-char (+ (length string) end))
-	  (insert string))))
-(global-set-key (kbd "C-c w") 'insert-or-wrap)
 
 ;; switch between non-system buffers
 ;; http://xahlee.org/emacs/elisp_examples.html
