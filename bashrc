@@ -4,6 +4,8 @@ set -e -u
 
 shopt -s extglob progcomp checkwinsize histappend
 
+alias date='date -Isec'
+
 export EDITOR='vi'				# is this really necessary?
 export PAGER='less -X'
 

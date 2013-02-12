@@ -11,22 +11,24 @@
 	(progn (message "Running windows -- ack!")
 		   (tool-bar-mode 0)
 		   (setq temporary-file-directory "C:\\Temp")
-		   (push "C:/GetGnuWin32/gnuwin32/bin" exec-path)
-		   (setenv "PATH" (concat "C:\\GetGnuWin32\\gnuwin32\\bin;"
+		   (push "c:\\Git\\bin" exec-path)
+		   (setenv "PATH" (concat  "c:\\Git\\bin;"
 								  (getenv "PATH")))))
 
 (setq default-frame-alist
-      '((top . 275) (left . 175)
-        (width . 115) (height . 40)))
+      '((top . 120) (left . 125)
+        (width . 140) (height . 50)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Overall stuff -- editing, saving etc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; cua mode -- I am now a believer
+;; cua and ido modes -- I am now a believer
 (cua-mode t)
 (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
+(ido-mode t)
+(ido-everywhere)
 
 ;; various nifty things
 (display-time)
@@ -62,8 +64,8 @@
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time 
 
 ;; bigger font
-;;(set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
-(set-default-font "-outline-Liberation Mono-normal-normal-normal-mono-13-*-*-*-c-*-iso")
+(set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
+;;(set-default-font "-outline-Liberation Mono-normal-normal-normal-mono-13-*-*-*-c-*-iso")
 
 ;; newline craziness
 (setq-default require-final-newline 'ask)
@@ -119,6 +121,7 @@
 ;; Program/ mode specific
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
 ;; mod, dat, run are all AMPL, but force to text for now
 (setq auto-mode-alist
       (cons '("\\.mod$" . text-mode) auto-mode-alist))
@@ -168,29 +171,32 @@
 ;; bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; align magic.
+(defun my-align-after-commas (beg end)
+  (interactive "r")
+  (align-regexp beg end ",\\(\\s-*\\)" 1 1 t))
+(defun my-align-after-equals (beg end)
+  (interactive "r")
+  (align-regexp beg end "=\\(\\s-*\\)" 1 1 t))
 
-;; switch between non-system buffers
-;; http://xahlee.org/emacs/elisp_examples.html
-(defun next-user-buffer ()
-  "Switch to the next user buffer in cyclic order.\n User buffers are those not starting with *."
+
+;; backward move to tab stop https://groups.google.com/forum/?fromgroups=#!topic/gnu.emacs.sources/yDyO0oKL1m8
+(defun backward-move-to-tab-stop ()
+  "Move point to previous (greatest less than point) tab-stop.  The
+variable `tab-stop-list' is a list of columns at which there are tab
+stops. Use \\[edit-tab-stops] to edit tab stops interactively.  This
+is a move-backward version of \\[move-to-tab-stop]."
   (interactive)
-  (next-buffer)
-  (let ((i 0))
-    (while (and (string-match "^*" (buffer-name)) (< i 50))
-      (setq i (1+ i)) (next-buffer) )))
-
-(defun previous-user-buffer ()
-  "Switch to the previous user buffer in cyclic order.\n User buffers are those not starting with *."
-  (interactive)
-  (previous-buffer)
-  (let ((i 0))
-    (while (and (string-match "^*" (buffer-name)) (< i 50))
-      (setq i (1+ i)) (previous-buffer) )))
-
-(global-set-key (kbd "C-<prior>") 'previous-user-buffer) ; Ctrl+PageDown
-(global-set-key (kbd "C-<next>") 'next-user-buffer) ; Ctrl+PageUp
-;(global-set-key (kbd "C-c p") 'previous-user-buffer) ; 
-;(global-set-key (kbd "C-c n") 'next-user-buffer) ; 
+  ;; loop to find greatest tab stop less than point
+  (let ((tabs (reverse tab-stop-list)))
+    (while (and tabs (<= (current-column) (car tabs)))
+      (setq tabs (cdr tabs)))
+    ;; if tabs not nil, car tabs is that column
+    ;; Otherwise, column should be 0.
+    ;; So go there.  
+    (cond (tabs (move-to-column (car tabs) t))
+          (t  (move-to-column 0 t)))))
+(provide 'backward-tab)
 
 ;; newline and indent-relative
 (defun newline-indent-relative ()
@@ -235,7 +241,7 @@
 (defun note ()
   "Insert string for the current time formatted like '2:34 PM'."
   (interactive)                 ; permit invocation in minibuffer
-  (insert (format-time-string "%Y-%m-%d WS: ")))
+  (insert (format-time-string "%Y-%m-%d WS(OFM): ")))
 (global-set-key (kbd "M-n") 'note)
 
 ;; copy the buffer to the clipboard.  Recorded macro.  No idea what
@@ -272,23 +278,6 @@
   (previous-line 9)
   (forward-char 18)
 )
-
-;; Insert a "section break" comment
-(defun com () (interactive)
-  (insert(format-time-string
-"/*********************************************************************************
-    
-**********************************************************************************/"))
-  (previous-line 2)
-  (forward-char 4)
-)
-
-;; Insert a MAIN delimiter thing
-(defun mn () (interactive)
-  (insert(format-time-string
-"/**** MAIN **********************************************************************/"))
-  (newline))
-
 
 ;; Insert a "section break" comment for octave
 (defun comm () (interactive)
