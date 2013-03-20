@@ -25,5 +25,5 @@ debug_on_error(0);
 debug_on_interrupt(0);
 debug_on_warning(0);
 
-
-
+output_precision (6)
+output_max_field_width(20)
