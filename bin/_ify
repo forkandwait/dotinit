@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+for F in $*; do 
+	mv -i  "$F" "_$F"
+done

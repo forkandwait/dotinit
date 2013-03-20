@@ -4,6 +4,7 @@
   '(										; keywords
     "abort"
     "and"
+	"array"
     "as"
     "begin"
     "by"

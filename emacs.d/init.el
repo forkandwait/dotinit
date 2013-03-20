@@ -178,6 +178,9 @@
 (defun my-align-after-equals (beg end)
   (interactive "r")
   (align-regexp beg end "=\\(\\s-*\\)" 1 1 t))
+(defun my-align-after-spaces (beg end)
+  (interactive "r")
+  (align-regexp beg end " \\(\\s-*\\)" 1 1 t))
 
 
 ;; backward move to tab stop https://groups.google.com/forum/?fromgroups=#!topic/gnu.emacs.sources/yDyO0oKL1m8
