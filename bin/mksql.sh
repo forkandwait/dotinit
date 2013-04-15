@@ -5,6 +5,11 @@ DB=foogis
 USER=postgres
 VER=9.2
 
+if [[ $# == 0 ]]; then 
+	echo "usage:  mksql.sh -u USER -s SRID -d DATABASE SHP1 SHP2 ..." >&2
+	exit 1
+fi
+
 while getopts ":s:d:u:" opt; do
 	case $opt in 
 		s) 

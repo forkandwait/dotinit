@@ -41,6 +41,7 @@
     "or"
     "option"
 	"options"
+	"otherwise"
     "output"
     "proc"
     "put"
