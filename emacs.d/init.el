@@ -27,8 +27,8 @@
 ;; cua and ido modes -- I am now a believer
 (cua-mode t)
 (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
-(ido-mode t)
-(ido-everywhere)
+;;(ido-mode t)
+;;(ido-everywhere)
 
 ;; various nifty things
 (display-time)
@@ -49,7 +49,7 @@
 
 ;; surround with parens and friends
 (global-set-key (kbd "M-[") 'insert-pair)
-(global-set-key (kbd "M-{") 'insert-pair)
+;;(global-set-key (kbd "M-{") 'insert-pair) ; breaks paragraph move
 (global-set-key (kbd "M-\"") 'insert-pair)
 (global-set-key (kbd "M-\'") 'insert-pair)
 
