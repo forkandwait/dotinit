@@ -30,6 +30,15 @@
 ;;(ido-mode t)
 ;;(ido-everywhere)
 
+;; align command
+(defun align-repeat (start end regexp)
+  "Repeat alignment with respect to 
+     the given regular expression."
+  (interactive "r\nsAlign regexp: ")
+  (align-regexp start end 
+				(concat "\\(\\s-*\\)" regexp) 1 1 t))
+
+
 ;; various nifty things
 (display-time)
 (auto-compression-mode t)     ;; Handle .gz files
