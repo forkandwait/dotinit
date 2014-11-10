@@ -40,7 +40,7 @@
 
 
 ;; Truncate lines (working with code all the time)
-(setq truncate-lines 1)
+(setq-default truncate-lines 1)
 
 
 ;; bookmark+ is cool
