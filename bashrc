@@ -9,6 +9,8 @@ alias date='date -Isec'
 export EDITOR='vi'				# is this really necessary?
 export PAGER='less -X'
 
+alias cpwd="pwd  | tr -d '\n'  >/dev/clipboard"
+alias ppwd='cat < /dev/clipboard'
 alias ll='ls -ltr'
 alias tm0='tmux attach-session -t 0'
 alias tml='tmux list-session'
@@ -28,5 +30,3 @@ test -z "${SSH_AUTH_SOCK:-xxx}" && eval `ssh-agent -s`
 set +e +u
 if [ -f $HOME/.bashrc.local ]; then . $HOME/.bashrc.local; fi
 if [ -f /etc/bash_completion ]; then . /etc/bash_completion; fi
-
-export PATH="$PATH:$HOME/.init/bin"

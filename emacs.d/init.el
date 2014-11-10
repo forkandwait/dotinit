@@ -1,34 +1,62 @@
-
+; -*-buffer-read-only:'t-*-
 ;; set current working directory a_ somewhere reasonable -- home.  on
 ;; windows, set this in the short cut
 (setq default-directory "~")
 (cd "~")
-(server-start)
+
+
+;; weirdness with "servers"
+;(server-start)
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
 
 ;; MS Windows specific   
 (if (eq system-type 'windows-nt)
 	(progn (message "Running windows -- ack!")
+		   (setq tcl-application "C:/Tcl/bin/tclsh") ;hackish, but whatever
 		   (tool-bar-mode 0)
 		   (setq temporary-file-directory "C:\\Temp")
 		   (push "c:\\Git\\bin" exec-path)
 		   (setenv "PATH" (concat  "c:\\Git\\bin;"
 								  (getenv "PATH")))))
 
+;; Location on desktop
 (setq default-frame-alist
-      '((top . 120) (left . 125)
-        (width . 140) (height . 50)))
+      '((top . 120) (left . 65)
+        (width . 80) (height . 30)))
 
+;; package paths
+(add-to-list 'load-path "~/.init/emacs.d/bookmark-plus-master")
+(add-to-list 'load-path "~/.init/emacs.d/")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Overall stuff -- editing, saving etc
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; julia mode
+;; (require 'julia-mode)
+
+;; stop trying to handle version control
+(setq vc-handled-backends ())
+
+
+;; Truncate lines (working with code all the time)
+(setq truncate-lines 1)
+
+
+;; bookmark+ is cool
+(require  'bookmark+ )
+(bookmark-bmenu-list)
+(switch-to-buffer "*Bookmark List*")
+(global-set-key [f2] 'bmkp-next-bookmark-this-file/buffer-repeat)   
+(global-set-key [(control f2)] 'bookmark-set)   
+(global-set-key [(shift control f2)] 'bmkp-toggle-autonamed-bookmark-set/delete)   
 
 ;; cua and ido modes -- I am now a believer
 (cua-mode t)
 (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
 ;;(ido-mode t)
 ;;(ido-everywhere)
+;;(setq cua-enable-cua-keys nil)
 
 ;; align command
 (defun align-repeat (start end regexp)
@@ -36,10 +64,10 @@
      the given regular expression."
   (interactive "r\nsAlign regexp: ")
   (align-regexp start end 
-				(concat "\\(\\s-*\\)" regexp) 1 1 t))
-
+		(concat "\\(\\s-*\\)" regexp) 1 1 t))
 
 ;; various nifty things
+(load-theme 'wombat)
 (display-time)
 (auto-compression-mode t)     ;; Handle .gz files
 (column-number-mode 1)  
@@ -58,7 +86,6 @@
 
 ;; surround with parens and friends
 (global-set-key (kbd "M-[") 'insert-pair)
-;;(global-set-key (kbd "M-{") 'insert-pair) ; breaks paragraph move
 (global-set-key (kbd "M-\"") 'insert-pair)
 (global-set-key (kbd "M-\'") 'insert-pair)
 
@@ -74,7 +101,6 @@
 
 ;; bigger font
 (set-default-font "-adobe-courier-medium-r-normal--16-180-75-75-m-110-iso8859-1")
-;;(set-default-font "-outline-Liberation Mono-normal-normal-normal-mono-13-*-*-*-c-*-iso")
 
 ;; newline craziness
 (setq-default require-final-newline 'ask)
@@ -123,21 +149,21 @@
 ;; Load simple-sas.el
 (load-file "~/.init/emacs.d/simple-sas.el")
 
-;; Load simple-ampl.el
-(load-file "~/.init/emacs.d/simple-ampl.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Program/ mode specific
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Load simple-ampl.el
+;; (load-file "~/.init/emacs.d/simple-ampl.el")
 
 ;; mod, dat, run are all AMPL, but force to text for now
-(setq auto-mode-alist
-      (cons '("\\.mod$" . text-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.dat$" . text-mode) auto-mode-alist))
-(setq auto-mode-alist
-      (cons '("\\.run$" . text-mode) auto-mode-alist))
+;; (setq auto-mode-alist
+;;       (cons '("\\.mod$" . text-mode) auto-mode-alist))
+;; (setq auto-mode-alist
+;;       (cons '("\\.dat$" . text-mode) auto-mode-alist))
+;; (setq auto-mode-alist
+;;       (cons '("\\.run$" . text-mode) auto-mode-alist))
 
 ;; octave customizations
 (autoload 'octave-mode "octave-mod" nil t)
@@ -149,6 +175,14 @@
 			 (progn
 			   (setq indent-tabs-mode nil))))
 
+;; tcl mode customization
+(add-hook 'tcl-mode-hook
+		  '(lambda ()
+			 (progn
+			   (setq indent-tabs-mode nil)
+				   )))
+;(add-hook 'inferior-tcl-mode-hook
+;          (lambda ()
 
 ;; text mode customizations
 (add-hook 'text-mode-hook
@@ -156,11 +190,11 @@
              (auto-fill-mode 0)
              (setq fill-column 80) 
 	     
-	     (local-set-key (kbd "TAB") 'tab-to-tab-stop)
-	     (setq tab-width 4)
-	     (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60
-				     64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)) 
-
+			 (local-set-key (kbd "TAB") 'tab-to-tab-stop)
+			 (setq tab-width 4)
+			 (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60
+									 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)) 
+			 
              (modify-syntax-entry ?_ "w")       ; now '_' is not considered a word-delimiter
              (modify-syntax-entry ?- "w")       ; now '-' is not considered a word-delimiter 
 			 (setq require-final-newline 'ask)
@@ -169,46 +203,29 @@
              ))
 
 (add-hook 'sql-mode-hook
-	  '(lambda ()
-	     (progn
-	       (setq tab-width 4)
-	       (local-set-key (kbd "TAB") 'tab-to-tab-stop)
-	       )))
+		  '(lambda ()
+			 (progn
+			   (setq-default buffer-read-only 't) 
+			   (setq-default tab-width 4)
+			   (setq comment-start "/* ")
+			   (setq comment-end " */")
+			   (setq tab-stop-list '(4 9))
+			   (set-face-foreground 'font-lock-string-face "red")
+			   (setq indent-tabs-mode nil)
+			   (setq indent-line-function 'tab-to-tab-stop) 
+			   (modify-syntax-entry ?_ "w")       ; now '_' is not considered a word-delimiter
+			   (modify-syntax-entry ?- "w")       ; now '-' is not considered a word-delimiter 
+			   )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Longwinded definitions and macros, usually accompanied by key
 ;; bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; align magic.
-(defun my-align-after-commas (beg end)
-  (interactive "r")
-  (align-regexp beg end ",\\(\\s-*\\)" 1 1 t))
-(defun my-align-after-equals (beg end)
-  (interactive "r")
-  (align-regexp beg end "=\\(\\s-*\\)" 1 1 t))
-(defun my-align-after-spaces (beg end)
-  (interactive "r")
-  (align-regexp beg end " \\(\\s-*\\)" 1 1 t))
-
-
-;; backward move to tab stop https://groups.google.com/forum/?fromgroups=#!topic/gnu.emacs.sources/yDyO0oKL1m8
-(defun backward-move-to-tab-stop ()
-  "Move point to previous (greatest less than point) tab-stop.  The
-variable `tab-stop-list' is a list of columns at which there are tab
-stops. Use \\[edit-tab-stops] to edit tab stops interactively.  This
-is a move-backward version of \\[move-to-tab-stop]."
-  (interactive)
-  ;; loop to find greatest tab stop less than point
-  (let ((tabs (reverse tab-stop-list)))
-    (while (and tabs (<= (current-column) (car tabs)))
-      (setq tabs (cdr tabs)))
-    ;; if tabs not nil, car tabs is that column
-    ;; Otherwise, column should be 0.
-    ;; So go there.  
-    (cond (tabs (move-to-column (car tabs) t))
-          (t  (move-to-column 0 t)))))
-(provide 'backward-tab)
+;; copy the region defined between registers 1 and 2, returns to starting location
+(fset 'cpr
+   [?\C-x ?r ?  ?3 ?\C-x ?r ?j ?1 ?\C-  ?\C-x ?r ?j ?2 ?\M-w ?\C-x ?r ?j ?3])
+(global-set-key (kbd "C-c c") 'cpr)
 
 ;; newline and indent-relative
 (defun newline-indent-relative ()
@@ -251,10 +268,18 @@ is a move-backward version of \\[move-to-tab-stop]."
 
 ;; Insert dates, times, notes
 (defun note ()
-  "Insert string for the current time formatted like '2:34 PM'."
+  "Insert string for the current time formatted like '2:34 PM'"
   (interactive)                 ; permit invocation in minibuffer
   (insert (format-time-string "%Y-%m-%d WS(OFM): ")))
 (global-set-key (kbd "M-n") 'note)
+
+;; Insert CREATE TABLE XXX AS 
+(defun create-table (T)
+  "Insert string for sql CREATE TABLE"
+  (interactive "sTable Name? ")                 ; permit invocation in minibuffer
+  (insert (format "CREATE TABLE %s AS " T)) 
+  )
+(global-set-key (kbd "C-c t") 'create-table)
 
 ;; copy the buffer to the clipboard.  Recorded macro.  No idea what
 ;; the weird kmacro-exec... thing does.
@@ -262,30 +287,26 @@ is a move-backward version of \\[move-to-tab-stop]."
       [?\M-< ?\C-  ?\M-> ?\M-w ?\C-u ?\C-  ?\C-u ?\C- ])
 (fset 'pa
       (lambda (&optional arg)
-    "Keyboard macro." (interactive "p") 
-    (kmacro-exec-ring-item 
-     (quote ([134217788 67108896 134217790 134217847 21 67108896 21 67108896] 0 "%d")) arg)))
+		"Keyboard macro." (interactive "p") 
+		(kmacro-exec-ring-item 
+		 (quote ([134217788 67108896 134217790 134217847 21 67108896 21 67108896] 0 "%d")) arg)))
 
 ;; Insert a header regarding code 
 (defun bp () (interactive)
   (insert(format-time-string
-"/*** -*-mode:simple-sas-*- **************************************************************
-    
-    PROGRAM/MACRO: 
-    
+"/*** -*-mode:simple-sas;buffer-read-only:'t-*- *****************************
+
     DESCRIPTION:  
-    
-    PROGRAMMERS:  webb.sprague@ofm.wa.gov    
-    
-    DATE STARTED: %Y-%m-%d
 
-    INPUT (DATASETS, NAMES, ETC): 
+    PROGRAMMERS:  webb.sprague@ofm.wa.gov
 
-    OUTPUT  (DATASETS, NAMES, ETC): 
+    DATE STARTED:  %Y-%m-%d
+
+    PARAMETERS:  
+
+    NOTES:  
     
-    NOTES:
-    
-**********************************************************************************/
+*********************************************************/
 "))
   (previous-line 9)
   (forward-char 18)
